@@ -1,0 +1,89 @@
+{
+  "name": "Bootcamp_Demo",
+  "version": "0.0.1",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "description": "Business Application",
+  "engines": {
+    "node": "^16"
+  },
+  "dependencies": {
+    "@sap-cloud-sdk/http-client": "^2.5",
+    "@sap/audit-logging": "^5",
+    "@sap/cds": "^6.1",
+    "@sap/xssec": "^3",
+    "cors": "^2.8.5",
+    "debug": "^4.3",
+    "express": "^4",
+    "hdb": "^0.19",
+    "passport": "^0.4.1",
+    "sap-cf-axios": "^0.3.6"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.0.2"
+  },
+  "scripts": {
+    "start": "cds run"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "restrict_all_services": false
+      },
+      "db": {
+        "[production]": {
+          "kind": "hana-cloud"
+        },
+        "[development]": {
+          "kind": "hana"
+        },
+        "model": [
+          "db",
+          "srv"
+        ],
+        "kind": "hana-cloud"
+      },
+      "AirportIATACode": {
+        "kind": "rest",
+        "impl": "srv/external/AirportIATACode.js",
+        "credentials": {
+          "destination": "AirportIATACode"
+        }
+      },
+      "CalculateCarbonAPI": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "CalculateCarbonAPI"
+        }
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
+  }
+}
